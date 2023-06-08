@@ -2,6 +2,8 @@ package com.example.gatewaygetaways.activity
 
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -67,6 +69,11 @@ class DashboardActivity : AppCompatActivity() {
             var intent = Intent(this, TypesOfLoginActivity::class.java)
             startActivity(intent)
         }
+
+        val pack: PackageManager =packageManager
+        val info: PackageInfo =pack.getPackageInfo(packageName,0)
+        val version: String=info.versionName
+        dashboardBinding.txtversion.text=version
 
         loadFragment(ExploreFragment())
         dashboardBinding.bottomNavigationView.setOnItemSelectedListener(object : NavigationView.OnNavigationItemSelectedListener, NavigationBarView.OnItemSelectedListener {

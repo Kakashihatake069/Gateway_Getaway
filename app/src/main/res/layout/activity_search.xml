@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
               android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="Type a Message"
+                android:hint="Search"
                 android:padding="@dimen/_5sdp"
                 tools:ignore="TouchTargetSizeCheck"
                 android:layout_weight="4"/>
@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
-        tools:listitem="@layout/searchitemfile">
+   >
 
     </androidx.recyclerview.widget.RecyclerView>
 

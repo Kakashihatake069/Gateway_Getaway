@@ -21,7 +21,8 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:fontFamily="@font/aovelsansrounded"
         android:text="PROFILE"
-        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textColor="#245953"
         android:textSize="@dimen/_25sdp" />
 
     <ImageView
@@ -29,22 +30,39 @@
         android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_80sdp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_80sdp"
-        android:src="@drawable/circle" />
+        android:layout_marginTop="@dimen/_60sdp"
+        android:src="@drawable/circle"
+        />
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_150sdp"
+        android:orientation="horizontal">
     <TextView
+        android:id="@+id/txtFname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="@dimen/_180sdp"
-        android:text="Name"
-        android:textColor="@color/black"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:text="first name"
+        android:textStyle="bold"
+        android:textColor="#245953"
         android:textSize="@dimen/_20sdp" />
 
+    <TextView
+        android:id="@+id/txtLname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="last name"
+        android:textStyle="bold"
+        android:textColor="#245953"
+        android:textSize="@dimen/_20sdp" />
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -55,7 +73,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_270sdp"
+                android:layout_marginTop="@dimen/_200sdp"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -64,6 +82,7 @@
                     android:src="@drawable/mail" />
 
                 <TextView
+                    android:id="@+id/txtemailid"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
@@ -197,24 +216,19 @@
                 android:layout_height="@dimen/_40sdp"
                 android:text="LOG OUT"
                 android:gravity="center"
-                android:textSize="@dimen/_15sdp"
-                android:layout_margin="@dimen/_20sdp"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 android:fontFamily="@font/aovelsansrounded"
-                android:background="@drawable/round_bg"
-                android:textColor="@color/white"/>
+                android:background="@drawable/round_bg_2"
+                android:textColor="#245953"/>
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Version 1.0"
-                android:textSize="@dimen/_10sdp" />
-            
 
         </LinearLayout>
 
 
-    </ScrollView>
+
 
 </FrameLayout>

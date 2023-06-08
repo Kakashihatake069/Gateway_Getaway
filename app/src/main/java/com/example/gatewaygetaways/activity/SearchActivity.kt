@@ -2,6 +2,7 @@ package com.example.gatewaygetaways.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -24,39 +25,85 @@ class SearchActivity : AppCompatActivity() {
         searchBinding = ActivitySearchBinding.inflate(layoutInflater)
         setContentView(searchBinding.root)
 
-        initview()
+        firebaseDatabase = FirebaseDatabase.getInstance().reference
+
+        searchBinding.imgsearch.setOnClickListener {
+            searchBinding.edtsearchBox
+            initview()
+        }
+
+//        initview()
+
     }
 
     private fun initview() {
 
 
-        searchBinding.imgsearch.setOnClickListener {
-            firebaseDatabase = FirebaseDatabase.getInstance().reference
-            val searchvalue = searchBinding.edtsearchBox.getText().toString()
-            Log.e("TAG", "initviewvjfgj: " + searchvalue)
+//        searchBinding.imgsearch.setOnClickListener {
+//            firebaseDatabase = FirebaseDatabase.getInstance().reference
+//
+//
+//            val searchvalue = searchBinding.edtsearchBox.getText().toString()
+//            Log.e("TAG", "initviewvjfgj: " + searchvalue)
+//
+//
+//            searchadapter = SearchAdapter(this,searchlist)
+//            firebaseDatabase.child("search").child(searchvalue).addValueEventListener(object : ValueEventListener{
+//                override fun onDataChange(snapshot: DataSnapshot) {
+//                    var image = snapshot.child("image").value.toString()
+//                    var name = snapshot.child("name").value.toString()
+//                    var location = snapshot.child("location").value.toString()
+//                    var amount = snapshot.child("amount").value.toString()
+//
+//                    Log.e(
+//                        "TAG",
+//                        "onDataChangemountain: " + image + " " + name + " " + location + " " + amount
+//                    )
+//
+//                    val LayoutManager =
+//                        LinearLayoutManager(this@SearchActivity, LinearLayoutManager.VERTICAL, false)
+//                    searchBinding.rcvsearch.layoutManager = LayoutManager
+//                    searchBinding.rcvsearch.adapter = searchadapter
+//                }
+//
+//                override fun onCancelled(error: DatabaseError) {
+//
+//                }
+//
+//            })
+//
+//        }
 
-            searchadapter = SearchAdapter(this,searchlist)
+        var search = searchBinding.edtsearchBox.text.toString()
 
-            firebaseDatabase.child("mountain").child(searchvalue).addValueEventListener(object : ValueEventListener{
+        if (search.isEmpty()){
+            Toast.makeText(this, "Please enter something to Search", Toast.LENGTH_SHORT).show()
+
+        }else{
+
+            firebaseDatabase.child("search").child(search).addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
-                    for (i in snapshot.children){
-                        var searchdata = i.getValue(ModelClassForDestinaion::class.java)
-                        Log.e(
-                            "TAG",
-                            "mountain:" + searchdata?.image + " " + searchdata?.name)
-//                        searchdata?.let{ d -> searchlist.add(d) }
-//                        searchdata?.image=i.child("image").value.toString()
-//                        searchdata?.name=i.child("name").value.toString()
-//                        searchdata?.location=i.child("location").value.toString()
-//                        searchdata?.amount=i.child("amount").value.toString()
 
-                        Log.e("TAG", "onData: "+searchdata?.name )
-                    }
+                    var image = snapshot.child("image").value.toString()
+                    var name = snapshot.child("name").value.toString()
+                    var location = snapshot.child("location").value.toString()
+                    var amount = snapshot.child("amount").value.toString()
+                    var rateing = ""
+                    var info = ""
+                    var status= 0
 
+                    var model=ModelClassForDestinaion(image,name,location,amount, rateing,info, status)
+
+                    searchlist.add(model)
+                    Log.e(
+                        "TAG",
+                        "onDataChangemountain: " + image + " " + name + " " + location + " " + amount)
+                    searchadapter = SearchAdapter(this@SearchActivity,searchlist)
                     val LayoutManager =
                         LinearLayoutManager(this@SearchActivity, LinearLayoutManager.VERTICAL, false)
                     searchBinding.rcvsearch.layoutManager = LayoutManager
                     searchBinding.rcvsearch.adapter = searchadapter
+                    searchadapter.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {
@@ -66,6 +113,8 @@ class SearchActivity : AppCompatActivity() {
             })
 
         }
+
+
 
     }
 }

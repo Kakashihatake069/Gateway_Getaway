@@ -24,8 +24,8 @@ class SearchAdapter(var context: Context, var searchlist: ArrayList<ModelClassFo
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         var v =
             LayoutInflater.from(parent.context).inflate(R.layout.searchitemfile, parent, false)
-        var view = MyViewHolder(v)
-        return view
+
+        return MyViewHolder(v)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
@@ -39,9 +39,5 @@ class SearchAdapter(var context: Context, var searchlist: ArrayList<ModelClassFo
     override fun getItemCount(): Int {
         return searchlist.size
     }
-    fun updatelist(searchlist : java.util.ArrayList<ModelClassForDestinaion>) {
-        this.searchlist = ArrayList()
-        this.searchlist = searchlist
-        notifyDataSetChanged()
-    }
+
 }

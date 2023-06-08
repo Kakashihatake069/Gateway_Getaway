@@ -80,13 +80,12 @@ class CreateAccountActivity : AppCompatActivity() {
 
         }
 
-
-
-
         createAccountBinding.txtLoginPage.setOnClickListener {
             var i = Intent(this, MainActivity::class.java)
             startActivity(i)
         }
+
+
     }
 
     private fun addUserToDatabase(firstName: String, lastName: String, email: String, uid: String) {
