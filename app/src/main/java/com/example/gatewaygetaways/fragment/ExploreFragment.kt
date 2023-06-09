@@ -1,5 +1,6 @@
 package com.example.gatewaygetaways.fragment
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -221,6 +222,7 @@ class ExploreFragment : Fragment() {
         })
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun initview() {
 
 

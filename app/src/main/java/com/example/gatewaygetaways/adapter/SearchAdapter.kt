@@ -40,4 +40,10 @@ class SearchAdapter(var context: Context, var searchlist: ArrayList<ModelClassFo
         return searchlist.size
     }
 
+    fun updatelist(searchlist: java.util.ArrayList<ModelClassForDestinaion>) {
+        this.searchlist = ArrayList()
+        this.searchlist = searchlist
+        notifyDataSetChanged()
+    }
+
 }

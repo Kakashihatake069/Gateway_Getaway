@@ -81,7 +81,7 @@ class SearchActivity : AppCompatActivity() {
 
         }else{
 
-            firebaseDatabase.child("search").child(search).addValueEventListener(object : ValueEventListener{
+            firebaseDatabase.child("mountain").child(search).addValueEventListener(object : ValueEventListener{
                 override fun onDataChange(snapshot: DataSnapshot) {
 
                     var image = snapshot.child("image").value.toString()
@@ -98,12 +98,15 @@ class SearchActivity : AppCompatActivity() {
                     Log.e(
                         "TAG",
                         "onDataChangemountain: " + image + " " + name + " " + location + " " + amount)
+                    Log.e("TAG", "search value: "+search )
                     searchadapter = SearchAdapter(this@SearchActivity,searchlist)
                     val LayoutManager =
                         LinearLayoutManager(this@SearchActivity, LinearLayoutManager.VERTICAL, false)
                     searchBinding.rcvsearch.layoutManager = LayoutManager
                     searchBinding.rcvsearch.adapter = searchadapter
-                    searchadapter.notifyDataSetChanged()
+
+                    searchadapter.updatelist(searchlist)
+
                 }
 
                 override fun onCancelled(error: DatabaseError) {

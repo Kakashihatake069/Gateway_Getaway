@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import com.bumptech.glide.Glide
 import com.example.gatewaygetaways.R
 import com.example.gatewaygetaways.databinding.FragmentExploreBinding
 import com.example.gatewaygetaways.databinding.FragmentProfileBinding
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import kotlin.math.E
 
 
 class ProfileFragment : Fragment() {
@@ -62,9 +64,14 @@ class ProfileFragment : Fragment() {
                 for (postSnapshot in snapshot.children){
                     var firstname = postSnapshot.child("firstName").value
                     var lastname = postSnapshot.child("lastName").value
-                    Log.e("TAG", "onDataChange: "+firstname+" "+lastname)
+                    var EmailId = postSnapshot.child("email").value
+                    var image = postSnapshot.child("image").value
+
+                    Log.e("TAG", "onDataChange: "+firstname+" "+lastname+" "+image)
                     profileBinding.txtFname.text = firstname.toString()
                     profileBinding.txtLname.text= lastname.toString()
+                    profileBinding.txtemailid.text= EmailId.toString()
+                    Glide.with(this@ProfileFragment).load(image).into(profileBinding.imgcircleDP)
                 }
 
             }

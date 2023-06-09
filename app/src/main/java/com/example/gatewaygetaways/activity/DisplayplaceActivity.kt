@@ -4,9 +4,12 @@ import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.example.gatewaygetaways.fragment.GoogleMapsFragment
 import com.example.gatewaygetaways.R
+import com.example.gatewaygetaways.adapter.HotelAdapter
+import com.example.gatewaygetaways.adapter.MountainAdapter
 import com.example.gatewaygetaways.databinding.ActivityDisplayplaceBinding
 import com.example.gatewaygetaways.modelclass.ModelClassForDestinaion
 import com.google.firebase.database.*
@@ -18,7 +21,7 @@ class DisplayplaceActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDisplayplaceBinding
     lateinit var firebaseDatabase: DatabaseReference
     lateinit var mountainlist: ArrayList<ModelClassForDestinaion>
-
+    lateinit var adapterhotel: HotelAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -127,6 +130,14 @@ class DisplayplaceActivity : AppCompatActivity() {
                         mFragment.arguments = bundle
                         mFragmentTransaction.add(R.id.mapframe,mFragment).commit()
                         Log.e("TAG", "onDataChangfgde: "+ bundle )
+
+
+
+
+                        // setting recyclerView layoutManager
+//                        val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+//                        binding.rcvhotel.layoutManager = layoutManager
+//                        binding.rcvhotel.adapter = ad
 
 
                     }

@@ -12,6 +12,7 @@
         android:layout_width="@dimen/_25sdp"
         android:layout_height="@dimen/_25sdp"
         android:layout_margin="@dimen/_10sdp"
+        android:src="@drawable/backblack"
         />
 
     <TextView
@@ -111,6 +112,7 @@
                     android:src="@drawable/smartphone" />
 
                 <TextView
+                    android:id="@+id/txtphoneNo"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_marginLeft="@dimen/_10sdp"
@@ -213,13 +215,13 @@
             
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_40sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:text="LOG OUT"
                 android:gravity="center"
                 android:textSize="@dimen/_20sdp"
                 android:textStyle="bold"
                 android:layout_marginVertical="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginHorizontal="@dimen/_50sdp"
                 android:fontFamily="@font/aovelsansrounded"
                 android:background="@drawable/round_bg_2"
                 android:textColor="#245953"/>

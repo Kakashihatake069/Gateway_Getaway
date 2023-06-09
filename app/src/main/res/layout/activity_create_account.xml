@@ -10,10 +10,45 @@
     >
 
     <ImageView
+        android:id="@+id/CreateDp"
         android:layout_width="@dimen/_50sdp"
         android:layout_height="@dimen/_50sdp"
         android:layout_marginTop="@dimen/_100sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:src="@drawable/user" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnpick"
+            android:layout_margin="@dimen/_30sdp"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_bg_2"
+            android:text="Pick Image"
+            android:textColor="@color/black"
+            android:layout_weight="1"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnupload"
+            android:layout_margin="@dimen/_30sdp"
+            android:layout_weight="1"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_bg_2"
+            android:text="Upload"
+            android:textColor="@color/black"
+            />
+
+    </LinearLayout>
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -93,7 +128,7 @@
         app:shapeAppearance="@style/Rounded">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtEmailC"
+            android:id="@+id/edtCreateEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:imeOptions="actionNext"
@@ -107,16 +142,16 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginVertical="@dimen/_10sdp"
-        android:hint="Mobile Number"
-        app:endIconMode="clear_text"
+        android:hint="@string/password"
+        app:endIconMode="password_toggle"
         app:endIconTint="@color/colorPrimaryDark"
         app:shapeAppearance="@style/Rounded">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtPhone"
+            android:id="@+id/edtCreatePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:imeOptions="actionNext"
+            android:imeOptions="actionDone"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -126,7 +161,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/_10sdp"
-        android:text="Create Account" />
+        android:text="Create Account"
+        android:background="@drawable/round_bg_2"
+        android:padding="@dimen/_10sdp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
