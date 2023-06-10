@@ -14,7 +14,8 @@ import com.example.gatewaygetaways.R
 import com.example.gatewaygetaways.fragment.ExploreFragment
 import com.example.gatewaygetaways.modelclass.ModelClassForPlaceDetails
 
-class JungleSafariAdapter(var context: ExploreFragment,var junglelist: ArrayList<ModelClassForDestinaion>, var jungleclick : (ModelClassForDestinaion) -> Unit) : RecyclerView.Adapter<JungleSafariAdapter.MyViewHolder>() {
+class JungleSafariAdapter(var context: ExploreFragment,var junglelist: ArrayList<ModelClassForDestinaion>, var jungleclick : (ModelClassForDestinaion) -> Unit) :
+    RecyclerView.Adapter<JungleSafariAdapter.MyViewHolder>() {
     class MyViewHolder(itemview : View) : RecyclerView.ViewHolder(itemview) {
         var txtjungleimage: ImageView = itemview.findViewById(R.id.txtjungleimage)
         var txtjunglelocation: TextView = itemview.findViewById(R.id.txtjunglelocation)

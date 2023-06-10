@@ -38,7 +38,7 @@ class MountainAdapter(var context: ExploreFragment, var mountainlist: ArrayList<
         holder.txtplacename.setText(mountainlist[position].name)
         holder.txtplaceamount.setText(mountainlist[position].amount)
 
-
+// like invoke
         holder.loutonmountain.setOnClickListener {
             click.invoke(mountainlist[position])
         }
