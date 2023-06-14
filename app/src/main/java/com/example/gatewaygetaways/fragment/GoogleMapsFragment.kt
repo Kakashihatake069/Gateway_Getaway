@@ -205,7 +205,48 @@ class GoogleMapsFragment : Fragment() {
                 })
 
         }
+        else if (arguments?.getBoolean("topddestination")== true){
 
+            MyDatabase.child("topddestination").child(value!!)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        var location = snapshot.child("location").value.toString()
+
+                        Log.e("TAG", "toplocation: " + location)
+
+
+                        var addressList: List<Address>? = null
+                        if (location != null || location == "") {
+                            val geocoder = Geocoder(requireContext())
+                            try {
+                                addressList = geocoder.getFromLocationName(location, 1)
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+                            val address = addressList!![0]
+                            val latlng = LatLng(address.latitude, address.longitude)
+
+                            Log.e(
+                                "TAG",
+                                "longitude: " + address.longitude + " " + "latitude:" + address.latitude
+                            )
+
+                            addmarker = googleMap.addMarker(
+                                MarkerOptions().position(latlng).title(location)
+                            )!!
+
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13f))
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+                })
+
+        }
     }
 
     override fun onCreateView(

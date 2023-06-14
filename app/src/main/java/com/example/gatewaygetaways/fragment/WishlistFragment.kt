@@ -18,6 +18,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
 
@@ -25,16 +26,17 @@ import com.google.firebase.ktx.Firebase
 class WishlistFragment : Fragment() {
     lateinit var wishlistBinding: FragmentWishlistBinding
     lateinit var likeAdapter: LikeAdapter
-    lateinit var likelist : ArrayList<ModelClassForDestinaion>
-    lateinit var rcvlike :RecyclerView
+    lateinit var rcvlike: RecyclerView
     lateinit var firebaseDatabase: DatabaseReference
     lateinit var auth: FirebaseAuth
+    var likelist = ArrayList<ModelClassForDestinaion>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         wishlistBinding = FragmentWishlistBinding.inflate(layoutInflater, container, false)
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference()
         auth = Firebase.auth
         initview()
         return wishlistBinding.root
@@ -42,7 +44,7 @@ class WishlistFragment : Fragment() {
 
     private fun initview() {
 
-         likeAdapter = LikeAdapter(requireContext(),likelist)
+        likeAdapter = LikeAdapter(requireContext())
 
 
         val layoutManager =
@@ -50,11 +52,12 @@ class WishlistFragment : Fragment() {
         wishlistBinding.rcvlike.layoutManager = layoutManager
         wishlistBinding.rcvlike.adapter = likeAdapter
 
-        firebaseDatabase.child("user").child(auth.currentUser?.uid!!).child("user_records").child("status").addValueEventListener(object : ValueEventListener{
+        firebaseDatabase.child("user").child(auth.currentUser?.uid!!).child("user_records")
+            .child("status").addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 likelist.clear()
 
-                for(postsnapshot in snapshot.children){
+                for (postsnapshot in snapshot.children) {
 
                     val currentUser = postsnapshot.getValue(ModelClassForDestinaion::class.java)
                     currentUser?.let { likelist.add(it) }

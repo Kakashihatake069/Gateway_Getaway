@@ -71,6 +71,11 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var amount4 = snapshot.child("amount").value.toString()
                         var details4 = snapshot.child("info").value.toString()
 
+                        val mFragmentManagertopdestination = supportFragmentManager
+                        val mFragmentTransactiontopdestination = mFragmentManagertopdestination.beginTransaction()
+                        val mFragmenttopdestination = GoogleMapsFragment()
+
+
                         Log.e(
                             "TAG",
                             "onDataChangemountain: " + image4 + " " + name4 + " " + rateing4 + " " + amount4
@@ -82,6 +87,14 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtrateing.text = rateing4
                         binding.txtfragamount.text = amount4
                         binding.txtabouttheplace.text = details4
+
+                        val bundle = Bundle()
+                        bundle.putString("name",name4)
+                        Log.e("TAG", "Tvalue: "+name4 )
+                        bundle.putBoolean("topddestination",true)
+                        mFragmenttopdestination.arguments = bundle
+                        mFragmentTransactiontopdestination.add(R.id.mapframe,mFragmenttopdestination).commit()
+                        Log.e("TAG", "onDataChangfgde: "+ bundle )
                     }
 
                     override fun onCancelled(error: DatabaseError) {
@@ -148,9 +161,9 @@ class DisplayplaceActivity : AppCompatActivity() {
 
                 })
 
-                binding.imglike.setOnClickListener {
-                    firebaseDatabase.child("mountain").child(value).child("details").child("status").setValue(1)
-                }
+//                binding.imglike.setOnClickListener {
+//                    firebaseDatabase.child("mountain").child(value).child("details").child("status").setValue(1)
+//                }
 
         }
         else if (key != null && intent.hasExtra("jungledestination")) {

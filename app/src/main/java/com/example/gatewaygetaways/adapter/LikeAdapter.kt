@@ -16,8 +16,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
-class LikeAdapter (var context: Context, var likelist : ArrayList<ModelClassForDestinaion>) : RecyclerView.Adapter<LikeAdapter.MyViewHolder>() {
-
+class LikeAdapter (var context: Context) : RecyclerView.Adapter<LikeAdapter.MyViewHolder>() {
+    var likelist = ArrayList<ModelClassForDestinaion>()
     lateinit var FirebaseDatabase : DatabaseReference
     lateinit var auth: FirebaseAuth
 
@@ -45,11 +45,6 @@ class LikeAdapter (var context: Context, var likelist : ArrayList<ModelClassForD
         holder.txt_like_info.text = likelist[position].info
 
         Glide.with(context).load(likelist[position].image).placeholder(R.drawable.defalutimage).into(holder.txt_like_image)
-
-
-
-
-
 
     }
 

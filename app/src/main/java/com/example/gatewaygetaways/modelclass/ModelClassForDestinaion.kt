@@ -5,7 +5,7 @@ import java.nio.channels.spi.AbstractSelectionKey
 class ModelClassForDestinaion {
 
     lateinit var image: String
-    lateinit var location: String
+    var location: String? = null
     lateinit var name: String
     lateinit var amount: String
     lateinit var rateing: String

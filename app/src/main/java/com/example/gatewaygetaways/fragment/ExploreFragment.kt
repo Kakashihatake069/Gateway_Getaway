@@ -116,60 +116,141 @@ class ExploreFragment : Fragment() {
     }
 
     private fun culturalsite() {
-        adapterculturalsite = CulturalSiteAdapter(this, culturalsitelist) {
+        adapterculturalsite = CulturalSiteAdapter(this, culturalsitelist, {
 
             val intent = Intent(activity, DisplayplaceActivity::class.java)
             intent.putExtra("name", it.name)
             intent.putExtra("culturalsite", true)
             activity?.startActivity(intent)
-        }
+        }, { status, name ->
 
-        firebaseDatabase = FirebaseDatabase.getInstance().reference
-        firebaseDatabase.child("culturalsites").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                culturalsitelist.clear()
-                for (i in snapshot.children) {
-                    var culturalsitedata = i.getValue(ModelClassForDestinaion::class.java)
-                    Log.e(
-                        "TAG",
-                        "culturalsite:" + culturalsitedata?.image + " " + culturalsitedata?.name
-                    )
-                    culturalsitedata?.let { d -> culturalsitelist.add(d) }
-                    culturalsitedata?.image = i.child("image").value.toString()
-                    culturalsitedata?.name = i.child("name").value.toString()
-                }
+            // display mountain recycle view path
+            firebaseDatabase.child("culturalsites").child(name).child("details")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var name = snapshot.child("name").value.toString()
+                        var amount = snapshot.child("amount").value.toString()
+                        var image = snapshot.child("image").value.toString()
+                        var info = snapshot.child("info").value.toString()
+                        var rateing = snapshot.child("rateing").value.toString()
+                        var location = snapshot.child("location").value.toString()
 
-                // setting recyclerView layoutManager
+                        Log.e("TAG", "like: " + name)
 
-                val layoutManager: RecyclerView.LayoutManager =
-                    StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-                exploreBinding.rcvculturalsite.layoutManager = layoutManager
-                exploreBinding.rcvculturalsite.adapter = adapterculturalsite
-            }
+                        firebaseDatabase.child("culturalsites").child(name).child("details")
+                            .child("user_data_storage").child(auth.currentUser?.uid!!)
+                            .child(name)
+                            .setValue(
+                                LikeModelCass(
+                                    image, name, amount, rateing, info, location
+                                )
+                            )
 
-            override fun onCancelled(error: DatabaseError) {
+                        firebaseDatabase.child("user").child(auth.currentUser?.uid!!)
+                            .child("user_records").child("status").child(name).setValue(
+                                LikeModelCass(
+                                    image, name, amount, rateing, info, location
+                                )
+                            )
 
-            }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
 
         })
+
+        firebaseDatabase = FirebaseDatabase.getInstance().reference
+        firebaseDatabase.child("culturalsites")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    culturalsitelist.clear()
+                    for (i in snapshot.children) {
+                        var culturalsitedata = i.getValue(ModelClassForDestinaion::class.java)
+                        Log.e(
+                            "TAG",
+                            "culturalsite:" + culturalsitedata?.image + " " + culturalsitedata?.name
+                        )
+                        culturalsitedata?.let { d -> culturalsitelist.add(d) }
+                        culturalsitedata?.image = i.child("image").value.toString()
+                        culturalsitedata?.name = i.child("name").value.toString()
+                    }
+
+                    // setting recyclerView layoutManager
+
+                    val layoutManager: RecyclerView.LayoutManager =
+                        StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+                    exploreBinding.rcvculturalsite.layoutManager = layoutManager
+                    exploreBinding.rcvculturalsite.adapter = adapterculturalsite
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
     }
 
+
     private fun warmdestination() {
-        adapterwarmdestination = WarmDestinationAdapter(this, warmdestinationlist) {
+        adapterwarmdestination = WarmDestinationAdapter(this, warmdestinationlist, {
 
             val warmintent = Intent(activity, DisplayplaceActivity::class.java)
             warmintent.putExtra("name", it.name)
             warmintent.putExtra("beachdestination", true)
             activity?.startActivity(warmintent)
 
-        }
+        }, { status, name ->
+
+            // display mountain recycle view path
+            firebaseDatabase.child("warmdestination").child(name).child("details")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var name = snapshot.child("name").value.toString()
+                        var amount = snapshot.child("amount").value.toString()
+                        var image = snapshot.child("image").value.toString()
+                        var info = snapshot.child("info").value.toString()
+                        var rateing = snapshot.child("rateing").value.toString()
+                        var location = snapshot.child("location").value.toString()
+
+                        Log.e("TAG", "like: " + name)
+
+                        firebaseDatabase.child("warmdestination").child(name).child("details")
+                            .child("user_data_storage").child(auth.currentUser?.uid!!)
+                            .child(name)
+                            .setValue(
+                                LikeModelCass(
+                                    image, name, amount, rateing, info, location
+                                )
+                            )
+
+                        firebaseDatabase.child("user").child(auth.currentUser?.uid!!)
+                            .child("user_records").child("status").child(name).setValue(
+                                LikeModelCass(
+                                    image, name, amount, rateing, info, location
+                                )
+                            )
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+        })
         firebaseDatabase = FirebaseDatabase.getInstance().reference
         firebaseDatabase.child("warmdestination")
             .addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     warmdestinationlist.clear()
                     for (i in snapshot.children) {
-                        var warmdestinationdata = i.getValue(ModelClassForDestinaion::class.java)
+                        var warmdestinationdata =
+                            i.getValue(ModelClassForDestinaion::class.java)
                         Log.e(
                             "TAG",
                             "warmdestination:" + warmdestinationdata?.image + " " + warmdestinationdata?.location + " " + warmdestinationdata?.name + " " + warmdestinationdata?.amount
@@ -192,11 +273,16 @@ class ExploreFragment : Fragment() {
                 }
 
             })
+
     }
 
     private fun junglesafari() {
 
-        adapterjunglesafari = JungleSafariAdapter(this, junglelist) {
+        adapterjunglesafari = JungleSafariAdapter(this, junglelist, {
+
+            val args = Bundle()
+            args.putString("name", it.name)
+            Log.e("TAG", "Junglename: " + it.name)
 //            val args = Bundle()
 //            args.putString("name", it.name)
 //            Log.e("TAG", "junlenamevaluename: "+it.name)
@@ -213,39 +299,82 @@ class ExploreFragment : Fragment() {
             activity?.startActivity(jungleintent)
 
 
-        }
-        firebaseDatabase = FirebaseDatabase.getInstance().reference
-        firebaseDatabase.child("junglesafari").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                junglelist.clear()
-                for (i in snapshot.children) {
-                    var junglesafaridata = i.getValue(ModelClassForDestinaion::class.java)
-                    Log.e(
-                        "TAG",
-                        "onDataChangejunglesafari:" + junglesafaridata?.image + " " + junglesafaridata?.location + " " + junglesafaridata?.name + " " + junglesafaridata?.amount
-                    )
-                    junglesafaridata?.let { d -> junglelist.add(d) }
-                    junglesafaridata?.amount = i.child("amount").value.toString()
-                    junglesafaridata?.image = i.child("image").value.toString()
-                    junglesafaridata?.location = i.child("location").value.toString()
-                    junglesafaridata?.name = i.child("name").value.toString()
-                }
+        }, { status, name ->
 
-                val LayoutManager =
-                    LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-                exploreBinding.rcvjunglesafari.layoutManager = LayoutManager
-                exploreBinding.rcvjunglesafari.adapter = adapterjunglesafari
-            }
+            // display mountain recycle view path
+            firebaseDatabase.child("junglesafari").child(name).child("details")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var name = snapshot.child("name").value.toString()
+                        var amount = snapshot.child("amount").value.toString()
+                        var image = snapshot.child("image").value.toString()
+                        var info = snapshot.child("info").value.toString()
+                        var rateing = snapshot.child("rateing").value.toString()
+                        var location = snapshot.child("location").value.toString()
 
-            override fun onCancelled(error: DatabaseError) {
+                        Log.e("TAG", "like: " + name)
 
-            }
+                        firebaseDatabase.child("junglesafari").child(name).child("details")
+                            .child("user_data_storage").child(auth.currentUser?.uid!!)
+                            .child(name)
+                            .setValue(
+                                LikeModelCass(
+                                    image, name, amount, rateing, info, location
+                                )
+                            )
+
+                        firebaseDatabase.child("user").child(auth.currentUser?.uid!!)
+                            .child("user_records").child("status").child(name).setValue(
+                                LikeModelCass(
+                                    image, name, amount, rateing, info, location
+                                )
+                            )
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
 
         })
+
+
+        firebaseDatabase = FirebaseDatabase.getInstance().reference
+        firebaseDatabase.child("junglesafari")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    junglelist.clear()
+                    for (i in snapshot.children) {
+                        var junglesafaridata = i.getValue(ModelClassForDestinaion::class.java)
+                        Log.e(
+                            "TAG",
+                            "onDataChangejunglesafari:" + junglesafaridata?.image + " " + junglesafaridata?.location + " " + junglesafaridata?.name + " " + junglesafaridata?.amount
+                        )
+                        junglesafaridata?.let { d -> junglelist.add(d) }
+                        junglesafaridata?.amount = i.child("amount").value.toString()
+                        junglesafaridata?.image = i.child("image").value.toString()
+                        junglesafaridata?.location = i.child("location").value.toString()
+                        junglesafaridata?.name = i.child("name").value.toString()
+                    }
+
+                    val LayoutManager =
+                        LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+                    exploreBinding.rcvjunglesafari.layoutManager = LayoutManager
+                    exploreBinding.rcvjunglesafari.adapter = adapterjunglesafari
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+
+            })
+
+
     }
 
-
-    @SuppressLint("SuspiciousIndentation")
     private fun initview() {
 
 
@@ -280,17 +409,18 @@ class ExploreFragment : Fragment() {
                         Log.e("TAG", "like: " + name)
 
                         firebaseDatabase.child("mountain").child(name).child("details")
-                            .child("user_data_storage").child(auth.currentUser?.uid!!).child(name)
+                            .child("user_data_storage").child(auth.currentUser?.uid!!)
+                            .child(name)
                             .setValue(
                                 LikeModelCass(
-                                    image, name, amount, rateing,info,location
+                                    image, name, amount, rateing, info, location
                                 )
                             )
 
                         firebaseDatabase.child("user").child(auth.currentUser?.uid!!)
                             .child("user_records").child("status").child(name).setValue(
                                 LikeModelCass(
-                                    image, name, amount, rateing,info,location
+                                    image, name, amount, rateing, info, location
                                 )
                             )
 
@@ -346,10 +476,8 @@ class LikeModelCass(
     var name: String,
     var amount: String,
     var rateing: String,
-    var info:String,
-    var location : String
-
-
-    ) {
-
+    var info: String,
+    var location: String
+) {
 }
+

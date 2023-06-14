@@ -19,6 +19,14 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             />
+        <ImageView
+            android:id="@+id/likeiconjungle"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/heart"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"/>
     </androidx.cardview.widget.CardView>
     <TextView
         android:id="@+id/txtjunglename"

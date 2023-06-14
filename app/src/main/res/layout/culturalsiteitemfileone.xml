@@ -22,8 +22,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="fitXY"
-
         />
+
+        <ImageView
+            android:id="@+id/culturallikeicon"
+            android:layout_width="@dimen/_20sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:src="@drawable/heart"
+            android:layout_gravity="right"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"/>
 
     </androidx.cardview.widget.CardView>
     <TextView
