@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
@@ -18,6 +19,9 @@ import com.example.gatewaygetaways.fragment.BookingFragment
 import com.example.gatewaygetaways.fragment.ExploreFragment
 import com.example.gatewaygetaways.fragment.ProfileFragment
 import com.example.gatewaygetaways.fragment.WishlistFragment
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationBarView
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
@@ -32,13 +36,7 @@ class DashboardActivity : AppCompatActivity() {
     lateinit var auth: FirebaseAuth
     lateinit var storage: FirebaseStorage
     lateinit var toggle: ActionBarDrawerToggle
-
-
-
-
-
-
-
+    lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,6 +71,27 @@ class DashboardActivity : AppCompatActivity() {
             myEdit.commit()
             var intent = Intent(this, TypesOfLoginActivity::class.java)
             startActivity(intent)
+
+        }
+
+        // google logout
+        // Initialize sign in client
+        googleSignInClient =
+            GoogleSignIn.getClient(this@DashboardActivity, GoogleSignInOptions.DEFAULT_SIGN_IN)
+        dashboardBinding.txtlogoutGoogle.setOnClickListener {
+            // Sign out from google
+            googleSignInClient.signOut().addOnCompleteListener { task ->
+                // Check condition
+                if (task.isSuccessful) {
+                    // When task is successful sign out from firebase
+                    auth.signOut()
+                    // Display Toast
+                    Toast.makeText(applicationContext, "Logout successful", Toast.LENGTH_SHORT)
+                        .show()
+                    // Finish activity
+                    finish()
+                }
+            }
         }
 
         val pack: PackageManager =packageManager
@@ -106,8 +125,6 @@ class DashboardActivity : AppCompatActivity() {
                 return true
             }
         })
-
-
 
     }
 

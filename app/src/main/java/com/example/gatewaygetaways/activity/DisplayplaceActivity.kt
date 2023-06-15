@@ -133,9 +133,9 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var amount4 = snapshot.child("amount").value.toString()
                         var details4 = snapshot.child("info").value.toString()
 
-                        val mFragmentManagertopdestination = supportFragmentManager
-                        val mFragmentTransactiontopdestination = mFragmentManagertopdestination.beginTransaction()
-                        val mFragmenttopdestination = GoogleMapsFragment()
+//                        val mFragmentManagertopdestination = supportFragmentManager
+//                        val mFragmentTransactiontopdestination = mFragmentManagertopdestination.beginTransaction()
+//                        val mFragmenttopdestination = GoogleMapsFragment()
 
 
                         Log.e(
@@ -150,13 +150,13 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtfragamount.text = amount4
                         binding.txtabouttheplace.text = details4
 
-                        val bundle = Bundle()
-                        bundle.putString("name",name4)
-                        Log.e("TAG", "Tvalue: "+name4 )
-                        bundle.putBoolean("topddestination",true)
-                        mFragmenttopdestination.arguments = bundle
-                        mFragmentTransactiontopdestination.add(R.id.mapframe,mFragmenttopdestination).commit()
-                        Log.e("TAG", "onDataChangfgde: "+ bundle )
+//                        val bundle = Bundle()
+//                        bundle.putString("name",name4)
+//                        Log.e("TAG", "Tvalue: "+name4 )
+//                        bundle.putBoolean("topddestination",true)
+//                        mFragmenttopdestination.arguments = bundle
+//                        mFragmentTransactiontopdestination.add(R.id.mapframe,mFragmenttopdestination).commit()
+//                        Log.e("TAG", "onDataChangfgde: "+ bundle )
                     }
 
                     override fun onCancelled(error: DatabaseError) {
