@@ -3,6 +3,7 @@ package com.example.gatewaygetaways.activity
 import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -13,7 +14,10 @@ import com.example.gatewaygetaways.adapter.MountainAdapter
 import com.example.gatewaygetaways.databinding.ActivityDisplayplaceBinding
 import com.example.gatewaygetaways.modelclass.ModelClassForDestinaion
 import com.google.firebase.database.*
+import com.razorpay.Checkout
 import kotlinx.coroutines.NonCancellable.key
+import org.json.JSONException
+import org.json.JSONObject
 
 
 class DisplayplaceActivity : AppCompatActivity() {
@@ -31,6 +35,7 @@ class DisplayplaceActivity : AppCompatActivity() {
         loadingmap()
         initview()
         hotel()
+        payment()
 
         setSupportActionBar(binding.toolbar)
 
@@ -41,10 +46,67 @@ class DisplayplaceActivity : AppCompatActivity() {
 
     }
 
+    private fun payment() {
+        binding.txtaddtocart.setOnClickListener {
+            // on below line we are getting
+            // amount that is entered by user.
+            val samount = 5000
+
+            // rounding off the amount.
+            val amount = Math.round(samount.toFloat() * 100)
+
+            // initialize Razorpay account.
+            val checkout = Checkout()
+
+            // set your id as below
+            checkout.setKeyID("rzp_test_fxJGVKoODm36ZT")
+
+            // set image
+//                checkout.setImage(R.drawable.)
+
+            // initialize json object
+            val `object` = JSONObject()
+            try {
+                // to put name
+                `object`.put("name", "Tour Package ")
+
+                // put description
+                `object`.put("description", "Package Payment")
+
+                // to set theme color
+                `object`.put("theme.color", "")
+
+                // put the currency
+                `object`.put("currency", "INR")
+
+                // put amount
+                `object`.put("amount", amount)
+
+                // put mobile number
+                `object`.put("prefill.contact", "9284064503")
+
+                // put email
+                `object`.put("prefill.email", "akshaypatel@gmail.com")
+
+                // open razorpay to checkout activity
+                checkout.open(this@DisplayplaceActivity, `object`)
+            }catch (e: JSONException){
+                e.printStackTrace()
+            }
+        }
+    }
+
+     fun onPaymentSuccess(p0: String?) {
+        Toast.makeText(this, "Payment is Successfull", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onPaymentError(p0: Int, p1: String?) {
+        Toast.makeText(this, "Something went Wrong", Toast.LENGTH_SHORT).show()
+    }
+
+
+
     private fun hotel() {
-
-
-
 
     }
 
@@ -323,5 +385,8 @@ class DisplayplaceActivity : AppCompatActivity() {
 
 
     }
+
+
+
 
 }

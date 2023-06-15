@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gatewaygetaways.R
 import com.example.gatewaygetaways.adapter.LikeAdapter
-import com.example.gatewaygetaways.adapter.MountainAdapter
 import com.example.gatewaygetaways.databinding.FragmentExploreBinding
 import com.example.gatewaygetaways.databinding.FragmentWishlistBinding
 import com.example.gatewaygetaways.modelclass.ModelClassForDestinaion
@@ -44,7 +42,11 @@ class WishlistFragment : Fragment() {
 
     private fun initview() {
 
-        likeAdapter = LikeAdapter(requireContext())
+        likeAdapter = LikeAdapter(requireContext(),{status,name->
+            firebaseDatabase.child("user").child(auth.currentUser?.uid!!).child("user_records").child("status").child(name)
+        })
+
+
 
 
         val layoutManager =

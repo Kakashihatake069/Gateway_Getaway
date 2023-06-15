@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/navigationdrawer"
-
+tools:openDrawer="start"
     tools:context=".activity.DashboardActivity"
     android:orientation="vertical">
 
@@ -22,7 +22,7 @@
         android:background="#245953"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:weightSum="5"
+        android:weightSum="4"
         tools:ignore="MissingConstraints">
         <ImageView
             android:id="@+id/drawermenu"
@@ -43,19 +43,14 @@
             android:textSize="@dimen/_20sdp"
                                         />
 
-        <ImageView
-            android:id="@+id/imgbackbtn"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:layout_weight="1"
-            android:src="@drawable/backbtn" />
 
         <ImageView
             android:id="@+id/imgsearchbtn"
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
             android:layout_weight="1"
-            android:src="@drawable/search" />
+            android:src="@drawable/search"
+            android:layout_marginLeft="@dimen/_10sdp"/>
 
     </LinearLayout>
 

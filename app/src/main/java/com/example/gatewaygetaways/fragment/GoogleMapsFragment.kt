@@ -37,8 +37,49 @@ class GoogleMapsFragment : Fragment() {
         val value = arguments?.getString("name")
         Log.e("TAG", "valueM: " + value)
 
+        if (arguments?.getBoolean("topddestination") == true) {
 
-        if (arguments?.getBoolean("loadsPosition") == true) {
+            MyDatabase.child("topddestination").child(value!!)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+
+                        var location = snapshot.child("location").value.toString()
+
+                        Log.e("TAG", "toplocation: " + location)
+
+
+                        var addressList: List<Address>? = null
+                        if (location != null || location == "") {
+                            val geocoder = Geocoder(requireContext())
+                            try {
+                                addressList = geocoder.getFromLocationName(location, 1)
+                            } catch (e: IOException) {
+                                e.printStackTrace()
+                            }
+                            val address = addressList!![0]
+                            val latlng = LatLng(address.latitude, address.longitude)
+
+                            Log.e(
+                                "TAG",
+                                "longitude: " + address.longitude + " " + "latitude:" + address.latitude
+                            )
+
+                            addmarker = googleMap.addMarker(
+                                MarkerOptions().position(latlng).title(location)
+                            )!!
+
+                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13f))
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+
+                    }
+
+                })
+
+        }
+        else if (arguments?.getBoolean("loadsPosition") == true) {
             MyDatabase.child("mountain").child(value!!)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -78,7 +119,7 @@ class GoogleMapsFragment : Fragment() {
 
                 })
         }
-        else if (arguments?.getBoolean("jungledestination") == true){
+        else if (arguments?.getBoolean("jungledestination") == true) {
 
             MyDatabase.child("junglesafari").child(value!!)
                 .addValueEventListener(object : ValueEventListener {
@@ -120,7 +161,7 @@ class GoogleMapsFragment : Fragment() {
                 })
 
         }
-        else if(arguments?.getBoolean("beachdestination")== true){
+        else if (arguments?.getBoolean("beachdestination") == true) {
 
             MyDatabase.child("warmdestination").child(value!!)
                 .addValueEventListener(object : ValueEventListener {
@@ -163,7 +204,7 @@ class GoogleMapsFragment : Fragment() {
 
 
         }
-        else if (arguments?.getBoolean("culturalsite")== true){
+        else if (arguments?.getBoolean("culturalsite") == true) {
 
             MyDatabase.child("culturalsites").child(value!!)
                 .addValueEventListener(object : ValueEventListener {
@@ -205,48 +246,7 @@ class GoogleMapsFragment : Fragment() {
                 })
 
         }
-        else if (arguments?.getBoolean("topddestination")== true){
 
-            MyDatabase.child("topddestination").child(value!!)
-                .addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-
-                        var location = snapshot.child("location").value.toString()
-
-                        Log.e("TAG", "toplocation: " + location)
-
-
-                        var addressList: List<Address>? = null
-                        if (location != null || location == "") {
-                            val geocoder = Geocoder(requireContext())
-                            try {
-                                addressList = geocoder.getFromLocationName(location, 1)
-                            } catch (e: IOException) {
-                                e.printStackTrace()
-                            }
-                            val address = addressList!![0]
-                            val latlng = LatLng(address.latitude, address.longitude)
-
-                            Log.e(
-                                "TAG",
-                                "longitude: " + address.longitude + " " + "latitude:" + address.latitude
-                            )
-
-                            addmarker = googleMap.addMarker(
-                                MarkerOptions().position(latlng).title(location)
-                            )!!
-
-                            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latlng, 13f))
-                        }
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-
-                    }
-
-                })
-
-        }
     }
 
     override fun onCreateView(
