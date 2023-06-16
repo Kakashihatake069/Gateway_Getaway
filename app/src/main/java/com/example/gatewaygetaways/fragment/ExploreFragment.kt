@@ -194,7 +194,6 @@ class ExploreFragment : Fragment() {
             })
     }
 
-
     private fun warmdestination() {
         adapterwarmdestination = WarmDestinationAdapter(this, warmdestinationlist, {
 
@@ -443,7 +442,7 @@ class ExploreFragment : Fragment() {
                     val data = i.getValue(ModelClassForDestinaion::class.java)
                     Log.e(
                         "TAG",
-                        "onDataChangemountain:" + data?.image + " " + data?.location + " " + data?.name + " " + data?.amount
+                        "dashboardmountain:" + data?.image + " " + data?.location + " " + data?.name + " " + data?.amount
                     )
                     data?.let { d -> mountainlist.add(d) }
                     data?.amount = i.child("amount").value.toString()

@@ -1,19 +1,20 @@
 package com.example.gatewaygetaways.activity
 
-import android.icu.text.Transliterator.Position
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.example.gatewaygetaways.fragment.GoogleMapsFragment
 import com.example.gatewaygetaways.R
 import com.example.gatewaygetaways.adapter.HotelAdapter
-import com.example.gatewaygetaways.adapter.MountainAdapter
 import com.example.gatewaygetaways.databinding.ActivityDisplayplaceBinding
+import com.example.gatewaygetaways.fragment.GoogleMapsFragment
 import com.example.gatewaygetaways.modelclass.ModelClassForDestinaion
-import com.google.firebase.database.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.razorpay.Checkout
 import kotlinx.coroutines.NonCancellable.key
 import org.json.JSONException
@@ -31,87 +32,12 @@ class DisplayplaceActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         binding = ActivityDisplayplaceBinding.inflate(layoutInflater)
+        supportActionBar?.hide()
         setContentView(binding.root)
         loadingmap()
         initview()
         hotel()
         payment()
-
-        setSupportActionBar(binding.toolbar)
-
-//        binding.fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
-
-    }
-
-    private fun payment() {
-        binding.txtaddtocart.setOnClickListener {
-            // on below line we are getting
-            // amount that is entered by user.
-            val samount = 5000
-
-            // rounding off the amount.
-            val amount = Math.round(samount.toFloat() * 100)
-
-            // initialize Razorpay account.
-            val checkout = Checkout()
-
-            // set your id as below
-            checkout.setKeyID("rzp_test_fxJGVKoODm36ZT")
-
-            // set image
-//                checkout.setImage(R.drawable.)
-
-            // initialize json object
-            val `object` = JSONObject()
-            try {
-                // to put name
-                `object`.put("name", "Tour Package ")
-
-                // put description
-                `object`.put("description", "Package Payment")
-
-                // to set theme color
-                `object`.put("theme.color", "")
-
-                // put the currency
-                `object`.put("currency", "INR")
-
-                // put amount
-                `object`.put("amount", amount)
-
-                // put mobile number
-                `object`.put("prefill.contact", "9284064503")
-
-                // put email
-                `object`.put("prefill.email", "akshaypatel@gmail.com")
-
-                // open razorpay to checkout activity
-                checkout.open(this@DisplayplaceActivity, `object`)
-            }catch (e: JSONException){
-                e.printStackTrace()
-            }
-        }
-    }
-
-     fun onPaymentSuccess(p0: String?) {
-        Toast.makeText(this, "Payment is Successfull", Toast.LENGTH_SHORT).show()
-    }
-
-    fun onPaymentError(p0: Int, p1: String?) {
-        Toast.makeText(this, "Something went Wrong", Toast.LENGTH_SHORT).show()
-    }
-
-
-
-    private fun hotel() {
-
-    }
-
-    private fun loadingmap() {
-        supportFragmentManager.beginTransaction().replace(R.id.mapframe, GoogleMapsFragment()).commit()
 
     }
 
@@ -164,8 +90,7 @@ class DisplayplaceActivity : AppCompatActivity() {
                     }
 
                 })
-        }
-        else if (key != null && intent.hasExtra("loadsPosition")) {
+        } else if (key != null && intent.hasExtra("loadsPosition")) {
 //            for mountain travel
             firebaseDatabase = FirebaseDatabase.getInstance().reference
             var value = intent.getStringExtra("name").toString()
@@ -188,7 +113,7 @@ class DisplayplaceActivity : AppCompatActivity() {
 
                         Log.e(
                             "TAG",
-                            "onDataChangemountain: " + image + " " + name + " " + rateing + " " + amount
+                            "displayactivity:" + image + " " + name + " " + rateing + " " + amount
                         )
 
                         Glide.with(getApplicationContext()).load(image)
@@ -199,14 +124,12 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtabouttheplace.text = details
 
                         val bundle = Bundle()
-                        bundle.putString("name",name)
-                        Log.e("TAG", "Bvalue: "+name )
-                        bundle.putBoolean("loadsPosition",true)
+                        bundle.putString("name", name)
+                        Log.e("TAG", "Bvalue: " + name)
+                        bundle.putBoolean("loadsPosition", true)
                         mFragment.arguments = bundle
-                        mFragmentTransaction.add(R.id.mapframe,mFragment).commit()
-                        Log.e("TAG", "onDataChangfgde: "+ bundle )
-
-
+                        mFragmentTransaction.add(R.id.mapframe, mFragment).commit()
+                        Log.e("TAG", "onDataChangfgde: " + bundle)
 
 
                         // setting recyclerView layoutManager
@@ -227,8 +150,7 @@ class DisplayplaceActivity : AppCompatActivity() {
 //                    firebaseDatabase.child("mountain").child(value).child("details").child("status").setValue(1)
 //                }
 
-        }
-        else if (key != null && intent.hasExtra("jungledestination")) {
+        } else if (key != null && intent.hasExtra("jungledestination")) {
 //            for jungle safari
             firebaseDatabase = FirebaseDatabase.getInstance().reference
             val junglevalue = intent.getStringExtra("name").toString()
@@ -243,8 +165,9 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var info1 = snapshot.child("info").value.toString()
 
                         val mFragmentManagerjunglesafari = supportFragmentManager
-                        val mFragmentTransactionjunglesafari  = mFragmentManagerjunglesafari.beginTransaction()
-                        val mFragmentjunglesafari  = GoogleMapsFragment()
+                        val mFragmentTransactionjunglesafari =
+                            mFragmentManagerjunglesafari.beginTransaction()
+                        val mFragmentjunglesafari = GoogleMapsFragment()
 
                         Log.e("TAG", "onDataChangejungle: " + name1)
 
@@ -256,12 +179,13 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtabouttheplace.text = info1
 
                         val bundle = Bundle()
-                        bundle.putString("name",name1)
-                        Log.e("TAG", "junglebundlepass: "+name1 )
-                        bundle.putBoolean("jungledestination",true)
+                        bundle.putString("name", name1)
+                        Log.e("TAG", "junglebundlepass: " + name1)
+                        bundle.putBoolean("jungledestination", true)
                         mFragmentjunglesafari.arguments = bundle
-                        mFragmentTransactionjunglesafari.add(R.id.mapframe,mFragmentjunglesafari).commit()
-                        Log.e("TAG", "junglesafari bundle value: "+ bundle )
+                        mFragmentTransactionjunglesafari.add(R.id.mapframe, mFragmentjunglesafari)
+                            .commit()
+                        Log.e("TAG", "junglesafari bundle value: " + bundle)
 
                         Log.e("TAG", "onDataChangedjungle: " + name1)
                     }
@@ -272,8 +196,7 @@ class DisplayplaceActivity : AppCompatActivity() {
 
                 })
 
-        }
-        else if (key != null && intent.hasExtra("beachdestination")) {
+        } else if (key != null && intent.hasExtra("beachdestination")) {
 //                for warm destination
             firebaseDatabase = FirebaseDatabase.getInstance().reference
             val beachvalue = intent.getStringExtra("name").toString()
@@ -290,8 +213,9 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var info2 = snapshot.child("info").value.toString()
 
                         val mFragmentManagerforbeach = supportFragmentManager
-                        val mFragmentTransactionforbeach  = mFragmentManagerforbeach.beginTransaction()
-                        val mFragmentforbeach  = GoogleMapsFragment()
+                        val mFragmentTransactionforbeach =
+                            mFragmentManagerforbeach.beginTransaction()
+                        val mFragmentforbeach = GoogleMapsFragment()
 
                         Log.e("TAG", "onDataChangewarmdestination: " + name2)
 
@@ -303,12 +227,12 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtabouttheplace.text = info2
 
                         val bundle = Bundle()
-                        bundle.putString("name",name2)
-                        Log.e("TAG", "junglebundlepass: "+name2 )
-                        bundle.putBoolean("beachdestination",true)
+                        bundle.putString("name", name2)
+                        Log.e("TAG", "junglebundlepass: " + name2)
+                        bundle.putBoolean("beachdestination", true)
                         mFragmentforbeach.arguments = bundle
-                        mFragmentTransactionforbeach.add(R.id.mapframe,mFragmentforbeach).commit()
-                        Log.e("TAG", "warm destination bundle value: "+ bundle )
+                        mFragmentTransactionforbeach.add(R.id.mapframe, mFragmentforbeach).commit()
+                        Log.e("TAG", "warm destination bundle value: " + bundle)
 
                         Log.e("TAG", "onDataChangedbeach: " + name2)
 
@@ -324,8 +248,7 @@ class DisplayplaceActivity : AppCompatActivity() {
 
 
                 })
-        }
-        else if (key != null && intent.hasExtra("culturalsite")) {
+        } else if (key != null && intent.hasExtra("culturalsite")) {
 //            for cultural sites
             firebaseDatabase = FirebaseDatabase.getInstance().reference
             val beachvalue = intent.getStringExtra("name").toString()
@@ -342,7 +265,7 @@ class DisplayplaceActivity : AppCompatActivity() {
 
                         val mFragmentManagertemple = supportFragmentManager
                         val mFragmentTransactiontemple = mFragmentManagertemple.beginTransaction()
-                        val mFragmenttemple  = GoogleMapsFragment()
+                        val mFragmenttemple = GoogleMapsFragment()
 
                         Log.e("TAG", "onDataChangewarmdestination: " + name3)
 
@@ -354,13 +277,13 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtabouttheplace.text = info3
 
                         val bundle = Bundle()
-                        bundle.putString("name",name3)
-                        Log.e("TAG", "templebundlepass: "+name3 )
-                        bundle.putBoolean("culturalsite",true)
+                        bundle.putString("name", name3)
+                        Log.e("TAG", "templebundlepass: " + name3)
+                        bundle.putBoolean("culturalsite", true)
                         mFragmenttemple.arguments = bundle
-                        mFragmentTransactiontemple.add(R.id.mapframe,mFragmenttemple).commit()
+                        mFragmentTransactiontemple.add(R.id.mapframe, mFragmenttemple).commit()
 
-                        Log.e("TAG", "temple destination bundle value: "+ bundle )
+                        Log.e("TAG", "temple destination bundle value: " + bundle)
 
                         Log.e("TAG", "onDataChangedtemple: " + name3)
 
@@ -380,13 +303,75 @@ class DisplayplaceActivity : AppCompatActivity() {
 
 
         }
+    }
 
-
-
+    private fun hotel() {
 
     }
 
+    private fun loadingmap() {
+        supportFragmentManager.beginTransaction().replace(R.id.mapframe, GoogleMapsFragment())
+            .commit()
 
+    }
+
+    private fun payment() {
+        binding.txtaddtocart.setOnClickListener {
+            // on below line we are getting
+            // amount that is entered by user.
+            val samount = 5000
+
+            // rounding off the amount.
+            val amount = Math.round(samount.toFloat() * 100)
+
+            // initialize Razorpay account.
+            val checkout = Checkout()
+
+            // set your id as below
+            checkout.setKeyID("rzp_test_fxJGVKoODm36ZT")
+
+            // set image
+//                checkout.setImage(R.drawable.)
+
+            // initialize json object
+            val `object` = JSONObject()
+            try {
+                // to put name
+                `object`.put("name", "Tour Package ")
+
+                // put description
+                `object`.put("description", "Package Payment")
+
+                // to set theme color
+                `object`.put("theme.color", "")
+
+                // put the currency
+                `object`.put("currency", "INR")
+
+                // put amount
+                `object`.put("amount", amount)
+
+                // put mobile number
+                `object`.put("prefill.contact", "9284064503")
+
+                // put email
+                `object`.put("prefill.email", "akshaypatel@gmail.com")
+
+                // open razorpay to checkout activity
+                checkout.open(this@DisplayplaceActivity, `object`)
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    fun onPaymentSuccess(p0: String?) {
+        Toast.makeText(this, "Payment is Successfull", Toast.LENGTH_SHORT).show()
+    }
+
+    fun onPaymentError(p0: Int, p1: String?) {
+        Toast.makeText(this, "Something went Wrong", Toast.LENGTH_SHORT).show()
+    }
 
 
 }
