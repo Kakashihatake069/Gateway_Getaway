@@ -38,10 +38,6 @@ class BookingFragment : Fragment() {
     private fun initview() {
 
 
-
-
-
-
 //
 //        val value = arguments?.getString("name").toString()
 //        Log.e("TAG", "mountainname: "+value)

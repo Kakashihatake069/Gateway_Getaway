@@ -4,11 +4,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -28,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+
 
 class DashboardActivity : AppCompatActivity() {
     lateinit var dashboardBinding: ActivityDashboardBinding
@@ -63,6 +68,72 @@ class DashboardActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
+
+        dashboardBinding.drawerhome.setOnClickListener {
+            dashboardBinding.navigationdrawer.closeDrawer(GravityCompat.START)
+            Toast.makeText(this, "you are already in category", Toast.LENGTH_SHORT).show()
+        }
+
+        dashboardBinding.privacypolicy.setOnClickListener {
+            var url = "https://akshaypatel4120.blogspot.com/2023/04/summary-of-changes-weve-updated-how-we.html"
+            var linkprivacy = Intent(Intent.ACTION_VIEW,Uri.parse(url))
+            startActivity(linkprivacy)
+        }
+
+        dashboardBinding.ratetheapp.setOnClickListener {
+            var url = "https://play.google.com/store/apps/details?id=com.tripadvisor.tripadvisor&hl=en-IN"
+            var linkrate = Intent(Intent.ACTION_VIEW,Uri.parse(url))
+            startActivity(linkrate)
+        }
+
+        dashboardBinding.feedback.setOnClickListener {
+            var url = "https://www.tripadvisor.in/UserReview"
+            var linkrate = Intent(Intent.ACTION_VIEW,Uri.parse(url))
+            startActivity(linkrate)
+        }
+
+        dashboardBinding.share.setOnClickListener {
+            var url = "https://www.whatsapp.com"
+            var linkshare = Intent(Intent.ACTION_VIEW,Uri.parse(url))
+            startActivity(linkshare)
+        }
+
+        dashboardBinding.termofservice.setOnClickListener {
+            var url = "https://www.blogger.com/blog/post/edit/preview/4257247768763819674/2835630061634682603"
+            var linkshare = Intent(Intent.ACTION_VIEW,Uri.parse(url))
+            startActivity(linkshare)
+        }
+
+        class DrawerItemClickListener : OnItemClickListener {
+            override fun onItemClick(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                selectItem(position)
+            }
+
+            private fun selectItem(position: Int) {
+
+//                Fragment fragment = null;
+//
+//                switch (position) {
+//                    case 0:
+//                    fragment = new ConnectFragment();
+//                    break;
+//                    case 1:
+//                    fragment = new FixturesFragment();
+//                    break;
+//                    case 2:
+//                    fragment = new TableFragment();
+//                    break;
+//
+//                    default:
+//                    break;
+            }
+        }
+
 
         dashboardBinding.btnlogout.setOnClickListener {
             var sharedPreferences = getSharedPreferences("MySharePref", MODE_PRIVATE)

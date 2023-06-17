@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/navigationdrawer"
-tools:openDrawer="start"
+    tools:openDrawer="start"
     tools:context=".activity.DashboardActivity"
     android:orientation="vertical">
 
@@ -95,6 +95,7 @@ tools:openDrawer="start"
 
 
     <com.google.android.material.navigation.NavigationView
+        android:id="@+id/NavigationView"
         android:layout_width="@dimen/_220sdp"
         android:layout_height="match_parent"
         android:layout_gravity="start">
@@ -208,6 +209,7 @@ tools:openDrawer="start"
                         android:orientation="vertical">
 
                         <LinearLayout
+                            android:id="@+id/drawerhome"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_15sdp"
@@ -232,6 +234,7 @@ tools:openDrawer="start"
 
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/drawerbooking"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:weightSum="6"
@@ -258,6 +261,7 @@ tools:openDrawer="start"
 
                         </LinearLayout>
                         <LinearLayout
+                            android:id="@+id/drawerfavourites"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:weightSum="6"
@@ -395,6 +399,7 @@ tools:openDrawer="start"
 <!--                                android:src="@drawable/likedrawer"-->
 <!--                                />-->
                             <TextView
+                                android:id="@+id/ratetheapp"
                                 android:layout_weight="5"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -420,6 +425,7 @@ tools:openDrawer="start"
 <!--                                android:src="@drawable/feedbackdrawer"-->
 <!--                                />-->
                             <TextView
+                                android:id="@+id/feedback"
                                 android:layout_weight="5"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -445,6 +451,7 @@ tools:openDrawer="start"
 <!--                                android:src="@drawable/sharedrawer"-->
 <!--                                />-->
                             <TextView
+                                android:id="@+id/share"
                                 android:layout_weight="5"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -470,6 +477,7 @@ tools:openDrawer="start"
 <!--                                android:src="@drawable/privacydrawer"-->
 <!--                                />-->
                             <TextView
+                                android:id="@+id/privacypolicy"
                                 android:layout_weight="5"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -496,6 +504,7 @@ tools:openDrawer="start"
 <!--                                android:src="@drawable/termsdrawer"-->
 <!--                                />-->
                             <TextView
+                                android:id="@+id/termofservice"
                                 android:layout_weight="5"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"

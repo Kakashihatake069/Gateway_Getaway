@@ -46,7 +46,6 @@
         <activity
             android:name=".activity.DisplayplaceActivity"
             android:exported="false"
-            android:label="@string/title_activity_displayplace"
             android:theme="@style/Theme.GatewayGetaways.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"

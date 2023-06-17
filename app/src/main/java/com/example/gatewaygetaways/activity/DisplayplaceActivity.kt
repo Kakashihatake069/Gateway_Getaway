@@ -23,7 +23,7 @@ import org.json.JSONObject
 
 class DisplayplaceActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityDisplayplaceBinding
+    lateinit var binding : ActivityDisplayplaceBinding
     lateinit var firebaseDatabase: DatabaseReference
     lateinit var mountainlist: ArrayList<ModelClassForDestinaion>
     lateinit var adapterhotel: HotelAdapter
@@ -90,7 +90,8 @@ class DisplayplaceActivity : AppCompatActivity() {
                     }
 
                 })
-        } else if (key != null && intent.hasExtra("loadsPosition")) {
+        }
+        else if (key != null && intent.hasExtra("loadsPosition")) {
 //            for mountain travel
             firebaseDatabase = FirebaseDatabase.getInstance().reference
             var value = intent.getStringExtra("name").toString()
@@ -150,7 +151,8 @@ class DisplayplaceActivity : AppCompatActivity() {
 //                    firebaseDatabase.child("mountain").child(value).child("details").child("status").setValue(1)
 //                }
 
-        } else if (key != null && intent.hasExtra("jungledestination")) {
+        }
+        else if (key != null && intent.hasExtra("jungledestination")) {
 //            for jungle safari
             firebaseDatabase = FirebaseDatabase.getInstance().reference
             val junglevalue = intent.getStringExtra("name").toString()
@@ -196,7 +198,8 @@ class DisplayplaceActivity : AppCompatActivity() {
 
                 })
 
-        } else if (key != null && intent.hasExtra("beachdestination")) {
+        }
+        else if (key != null && intent.hasExtra("beachdestination")) {
 //                for warm destination
             firebaseDatabase = FirebaseDatabase.getInstance().reference
             val beachvalue = intent.getStringExtra("name").toString()
@@ -248,7 +251,8 @@ class DisplayplaceActivity : AppCompatActivity() {
 
 
                 })
-        } else if (key != null && intent.hasExtra("culturalsite")) {
+        }
+        else if (key != null && intent.hasExtra("culturalsite")) {
 //            for cultural sites
             firebaseDatabase = FirebaseDatabase.getInstance().reference
             val beachvalue = intent.getStringExtra("name").toString()
