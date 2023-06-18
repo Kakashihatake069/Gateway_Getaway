@@ -4,119 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.BookingFragment"
-    android:orientation="vertical"
- >
+    android:orientation="vertical">
 
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:scrollbars="vertical"
-     >
-      <LinearLayout
-          android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:orientation="vertical">
-         <ImageView
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/_200sdp"
-             android:id="@+id/imgplaceimage"
-             android:layout_marginBottom="@dimen/_5sdp"
-             />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcvbookings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-         <TextView
-             android:id="@+id/txtplacename"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/_25sdp"
-             android:layout_marginHorizontal="@dimen/_10sdp"
-             android:fontFamily="@font/aovelsansrounded"
-             android:textColor="@color/black"
-             android:textStyle="bold"
-             android:textSize="@dimen/_20sdp"
-             android:paddingHorizontal="@dimen/_10sdp"
-             android:gravity="center_vertical"
-             android:layout_marginBottom="@dimen/_5sdp"
-             />
-
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/_20sdp"
-             android:orientation="horizontal"
-             android:gravity="center_vertical"
-             android:paddingHorizontal="@dimen/_10sdp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="Rateing : "
-                android:gravity="center_vertical"
-                android:textColor="@color/black"
-                android:textStyle="bold"
-
-                />
-            <TextView
-                android:id="@+id/txtrateing"
-                android:layout_marginRight="@dimen/_30sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:fontFamily="@font/aovelsansrounded"
-
-                android:paddingHorizontal="@dimen/_10sdp"
-                android:gravity="center_vertical"
-                />
-         </LinearLayout>
-
-    <TextView
-        android:id="@+id/txtfragamount"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_15sdp"
-        android:layout_marginBottom="@dimen/_30sdp"
-        android:gravity="center_vertical"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:layout_marginLeft="@dimen/_10sdp"
-      />
-
-
-    <TextView
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/_25sdp"
-             android:text="About the place"
-             android:fontFamily="@font/aovelsansrounded"
-             android:textColor="@color/black"
-             android:textStyle="bold"
-             android:textSize="@dimen/_15sdp"
-             android:paddingHorizontal="@dimen/_10sdp"
-             android:gravity="center_vertical"
-             android:layout_marginBottom="@dimen/_10sdp"
-             />
-
-         <TextView
-             android:id="@+id/txtabouttheplace"
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:layout_marginBottom="@dimen/_20sdp"
-             android:paddingHorizontal="@dimen/_10sdp"
-            android:layout_marginHorizontal="@dimen/_10sdp"
-             android:textColor="@color/black" />
-
-          <androidx.appcompat.widget.AppCompatButton
-              android:layout_width="match_parent"
-              android:layout_gravity="bottom"
-              android:layout_height="wrap_content"
-              android:layout_alignParentBottom="true"
-              android:layout_marginStart="@dimen/_10sdp"
-              android:layout_marginTop="@dimen/_10sdp"
-              android:layout_marginEnd="@dimen/_10sdp"
-              android:layout_marginBottom="@dimen/_10sdp"
-              android:backgroundTint="#245953"
-              android:text="ADD TO CART"
-              android:textColor="@color/white" />
-
-
-
-      </LinearLayout>
-   </ScrollView>
-
-
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

@@ -38,7 +38,17 @@ class DisplayplaceActivity : AppCompatActivity() {
         initview()
         hotel()
         payment()
+        addtocart()
+    }
 
+    private fun addtocart() {
+        binding.txtaddtocart.setOnClickListener {
+            if (key != null && intent.hasExtra("topddestination")) {
+                firebaseDatabase = FirebaseDatabase.getInstance().reference
+                var cartvalue = intent.getStringExtra("name").toString()
+                Log.e("TAG", "addtocart: " + cartvalue)
+            }
+        }
     }
 
     private fun initview() {
