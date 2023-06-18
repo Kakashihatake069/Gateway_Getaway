@@ -13,7 +13,7 @@ import com.example.gatewaygetaways.modelclass.ModelClassForDestinaion
 import com.example.gatewaygetaways.R
 import com.example.gatewaygetaways.fragment.ExploreFragment
 
-class MountainAdapter(var context: ExploreFragment, var mountainlist: ArrayList<ModelClassForDestinaion>, var click : (ModelClassForDestinaion) -> Unit, var like : (Int,String) -> Unit ) : RecyclerView.Adapter<MountainAdapter.MyViewHolder>() {
+class MountainAdapter(var context: ExploreFragment, var mountainlist: ArrayList<ModelClassForDestinaion>, var click : (ModelClassForDestinaion) -> Unit, var like : (Int,String) -> Unit, var addcart : (Int,String) -> Unit  ) : RecyclerView.Adapter<MountainAdapter.MyViewHolder>() {
 
 
     class MyViewHolder(itemview: View) : RecyclerView.ViewHolder(itemview) {
@@ -23,6 +23,7 @@ class MountainAdapter(var context: ExploreFragment, var mountainlist: ArrayList<
         var txtplaceamount: TextView = itemview.findViewById(R.id.txtplaceamount)
         var loutonmountain: LinearLayout = itemview.findViewById(R.id.loutonmountain)
         var likeicon: ImageView = itemview.findViewById(R.id.likeicon)
+        var carticon: ImageView = itemview.findViewById(R.id.imgaddtocart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -58,12 +59,38 @@ class MountainAdapter(var context: ExploreFragment, var mountainlist: ArrayList<
                 mountainlist[position].status = 0
                 Log.e(
                     "text",
-                    "display:" + mountainlist[position].status.toString() + " " + mountainlist[position].name
+                    "displaylike:" + mountainlist[position].status.toString() + " " + mountainlist[position].name
                 )
             } else {
                 like.invoke(1,mountainlist[position].name)
                 holder.likeicon.setImageResource(R.drawable.heartfill)
                 mountainlist[position].status = 1
+            }
+        }
+
+        // cart invoke
+
+        if(mountainlist[position].cart==1)
+        {
+            holder.carticon.setImageResource(R.drawable.addtocart2)
+        } else {
+            holder.carticon.setImageResource(R.drawable.shoppingcart)
+        }
+
+        holder.carticon.setOnClickListener {
+
+            if (mountainlist[position].cart == 1) {
+                addcart.invoke(0,mountainlist[position].name)
+                holder.carticon.setImageResource(R.drawable.shoppingcart)
+                mountainlist[position].cart = 0
+                Log.e(
+                    "text",
+                    "displaycart:" + mountainlist[position].status.toString() + " " + mountainlist[position].name
+                )
+            } else {
+                addcart.invoke(1,mountainlist[position].name)
+                holder.carticon.setImageResource(R.drawable.addtocart2)
+                mountainlist[position].cart = 1
             }
         }
 

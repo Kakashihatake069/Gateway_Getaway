@@ -11,6 +11,7 @@ class ModelClassForDestinaion {
     lateinit var rateing: String
     lateinit var info: String
      var status: Int = 0
+    var cart : Int = 0
 
 
     constructor(
@@ -20,7 +21,8 @@ class ModelClassForDestinaion {
         amount: String,
         rateing: String,
         info: String,
-        status: Int
+        status: Int,
+        cart: Int
     ) {
 
         this.image = image
@@ -30,6 +32,7 @@ class ModelClassForDestinaion {
         this.rateing = rateing
         this.info = info
         this.status = status
+        this.cart = cart
 
     }
 

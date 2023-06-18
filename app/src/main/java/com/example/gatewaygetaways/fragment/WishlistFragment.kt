@@ -45,10 +45,6 @@ class WishlistFragment : Fragment() {
         likeAdapter = LikeAdapter(requireContext(),{status,name->
             firebaseDatabase.child("user").child(auth.currentUser?.uid!!).child("user_records").child("status").child(name)
         })
-
-
-
-
         val layoutManager =
             LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         wishlistBinding.rcvlike.layoutManager = layoutManager

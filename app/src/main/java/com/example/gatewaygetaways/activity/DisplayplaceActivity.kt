@@ -1,5 +1,6 @@
 package com.example.gatewaygetaways.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -8,13 +9,18 @@ import com.bumptech.glide.Glide
 import com.example.gatewaygetaways.R
 import com.example.gatewaygetaways.adapter.HotelAdapter
 import com.example.gatewaygetaways.databinding.ActivityDisplayplaceBinding
+import com.example.gatewaygetaways.fragment.BookingFragment
 import com.example.gatewaygetaways.fragment.GoogleMapsFragment
+import com.example.gatewaygetaways.fragment.LikeModelCass
 import com.example.gatewaygetaways.modelclass.ModelClassForDestinaion
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.razorpay.Checkout
 import kotlinx.coroutines.NonCancellable.key
 import org.json.JSONException
@@ -27,6 +33,7 @@ class DisplayplaceActivity : AppCompatActivity() {
     lateinit var firebaseDatabase: DatabaseReference
     lateinit var mountainlist: ArrayList<ModelClassForDestinaion>
     lateinit var adapterhotel: HotelAdapter
+    lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,25 +41,24 @@ class DisplayplaceActivity : AppCompatActivity() {
         binding = ActivityDisplayplaceBinding.inflate(layoutInflater)
         supportActionBar?.hide()
         setContentView(binding.root)
+        auth = Firebase.auth
         loadingmap()
         initview()
         hotel()
         payment()
-        addtocart()
+
     }
 
-    private fun addtocart() {
-        binding.txtaddtocart.setOnClickListener {
-            if (key != null && intent.hasExtra("topddestination")) {
-                firebaseDatabase = FirebaseDatabase.getInstance().reference
-                var cartvalue = intent.getStringExtra("name").toString()
-                Log.e("TAG", "addtocart: " + cartvalue)
-            }
-        }
-    }
+
 
 
     private fun initview() {
+
+
+        binding.imgdisback.setOnClickListener {
+            onBackPressed()
+        }
+
 
         if (key != null && intent.hasExtra("topddestination")) {
             // for trending destination
@@ -69,6 +75,7 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var rateing4 = snapshot.child("rateing").value.toString()
                         var amount4 = snapshot.child("amount").value.toString()
                         var details4 = snapshot.child("info").value.toString()
+                        var location4 = snapshot.child("location").value.toString()
 
 //                        val mFragmentManagertopdestination = supportFragmentManager
 //                        val mFragmentTransactiontopdestination = mFragmentManagertopdestination.beginTransaction()
@@ -86,6 +93,8 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtrateing.text = rateing4
                         binding.txtfragamount.text = amount4
                         binding.txtabouttheplace.text = details4
+                        binding.txtlocation.text = location4
+                        binding.txttitlename.text = name4
 
 //                        val bundle = Bundle()
 //                        bundle.putString("name",name4)
@@ -118,6 +127,7 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var rateing = snapshot.child("rateing").value.toString()
                         var amount = snapshot.child("amount").value.toString()
                         var details = snapshot.child("info").value.toString()
+                        var location = snapshot.child("location").value.toString()
 
                         val mFragmentManager = supportFragmentManager
                         val mFragmentTransaction = mFragmentManager.beginTransaction()
@@ -125,7 +135,7 @@ class DisplayplaceActivity : AppCompatActivity() {
 
                         Log.e(
                             "TAG",
-                            "displayactivity:" + image + " " + name + " " + rateing + " " + amount
+                            "displayactivity:" + image + " " + name + " " + rateing + " " + amount+" "+location
                         )
 
                         Glide.with(getApplicationContext()).load(image)
@@ -134,6 +144,8 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtrateing.text = rateing
                         binding.txtfragamount.text = amount
                         binding.txtabouttheplace.text = details
+                        binding.txtlocation.text =location
+                        binding.txttitlename.text = name
 
                         val bundle = Bundle()
                         bundle.putString("name", name)
@@ -176,6 +188,7 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var rateing1 = snapshot.child("rateing").value.toString()
                         var amount1 = snapshot.child("amount").value.toString()
                         var info1 = snapshot.child("info").value.toString()
+                        var location1 = snapshot.child("location").value.toString()
 
                         val mFragmentManagerjunglesafari = supportFragmentManager
                         val mFragmentTransactionjunglesafari =
@@ -190,6 +203,8 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtrateing.text = rateing1
                         binding.txtfragamount.text = amount1
                         binding.txtabouttheplace.text = info1
+                        binding.txtlocation.text = location1
+                        binding.txttitlename.text = name1
 
                         val bundle = Bundle()
                         bundle.putString("name", name1)
@@ -225,6 +240,7 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var rateing2 = snapshot.child("rateing").value.toString()
                         var amounnt2 = snapshot.child("amount").value.toString()
                         var info2 = snapshot.child("info").value.toString()
+                        var location2 = snapshot.child("location").value.toString()
 
                         val mFragmentManagerforbeach = supportFragmentManager
                         val mFragmentTransactionforbeach =
@@ -239,6 +255,9 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtrateing.text = rateing2
                         binding.txtfragamount.text = amounnt2
                         binding.txtabouttheplace.text = info2
+                        binding.txtlocation.text = location2
+                        binding.txttitlename.text = name2
+
 
                         val bundle = Bundle()
                         bundle.putString("name", name2)
@@ -277,6 +296,7 @@ class DisplayplaceActivity : AppCompatActivity() {
                         var rateing3 = snapshot.child("rateing").value.toString()
                         var amounnt3 = snapshot.child("amount").value.toString()
                         var info3 = snapshot.child("info").value.toString()
+                        var location3 = snapshot.child("location").value.toString()
 
                         val mFragmentManagertemple = supportFragmentManager
                         val mFragmentTransactiontemple = mFragmentManagertemple.beginTransaction()
@@ -290,6 +310,8 @@ class DisplayplaceActivity : AppCompatActivity() {
                         binding.txtrateing.text = rateing3
                         binding.txtfragamount.text = amounnt3
                         binding.txtabouttheplace.text = info3
+                        binding.txtlocation.text = location3
+                        binding.txttitlename.text = name3
 
                         val bundle = Bundle()
                         bundle.putString("name", name3)

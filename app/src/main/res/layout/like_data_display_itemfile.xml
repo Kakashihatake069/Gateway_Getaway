@@ -87,18 +87,30 @@
             android:textSize="@dimen/_15sdp"
             android:text=""
             android:textStyle="bold" />
-        <TextView
-            android:id="@+id/txt_like_rateing"
-            android:layout_width="0dp"
-            android:layout_gravity="center"
-            android:layout_weight="1"
+        <LinearLayout
 
-            android:layout_height="@dimen/_20sdp"
-            android:fontFamily="@font/aovelsansrounded"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_15sdp"
-            android:text=""
-            android:textStyle="bold" />
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_30sdp"
+            android:orientation="horizontal"
+            android:layout_marginRight="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center"
+                android:src="@drawable/ratingstar" />
+
+            <TextView
+                android:id="@+id/txt_like_rateing"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_15sdp"
+                android:layout_gravity="center_vertical"
+                android:fontFamily="@font/aovelsansrounded"
+                android:gravity="center"
+                android:paddingHorizontal="@dimen/_3sdp"
+                android:text="sfg"
+                android:textColor="@color/white" />
+        </LinearLayout>
 
     </LinearLayout>
 

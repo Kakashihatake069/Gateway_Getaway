@@ -98,6 +98,7 @@ class SearchActivity : AppCompatActivity() {
                         var rateing = ""
                         var info = ""
                         var status = 0
+                        var cart = 0
 
                         var model = ModelClassForDestinaion(
                             image,
@@ -106,7 +107,8 @@ class SearchActivity : AppCompatActivity() {
                             amount,
                             rateing,
                             info,
-                            status
+                            status,
+                            cart
                         )
 
                         searchlist.add(model)

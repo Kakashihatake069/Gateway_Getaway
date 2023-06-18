@@ -28,10 +28,11 @@
 
     <ImageView
         android:id="@+id/imgcircleDP"
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_90sdp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/_60sdp"
+        android:scaleType="fitXY"
         android:src="@drawable/circle"
         />
 
@@ -214,6 +215,7 @@
             
             
             <TextView
+                android:id="@+id/txtprofilelogout"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:text="LOG OUT"
@@ -224,7 +226,7 @@
                 android:layout_marginHorizontal="@dimen/_50sdp"
                 android:fontFamily="@font/aovelsansrounded"
                 android:background="@drawable/round_bg_2"
-                android:textColor="#245953"/>
+                android:textColor="@color/white"/>
 
 
 

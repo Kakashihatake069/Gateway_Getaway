@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:background="@drawable/round_bg"
     android:layout_margin="@dimen/_5sdp"
-    android:id="@+id/loutonmountain">
+    android:id="@+id/loutcart">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -14,23 +14,16 @@
         app:cardCornerRadius="@dimen/_10sdp">
 
         <ImageView
-            android:id="@+id/txtimage"
+            android:id="@+id/img_cart_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY" />
 
-        <ImageView
-            android:id="@+id/likeicon"
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
-            android:src="@drawable/heart"
-            android:layout_gravity="right"
-            android:layout_marginRight="@dimen/_10sdp"
-            android:layout_marginTop="@dimen/_10sdp"/>
+
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/txtplacename"
+        android:id="@+id/txtcartname"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_20sdp"
         android:layout_marginHorizontal="@dimen/_20sdp"
@@ -49,14 +42,14 @@
         android:layout_marginTop="@dimen/_5sdp"
         android:orientation="horizontal">
 
-<!--        <ImageView-->
-<!--            android:layout_width="@dimen/_15sdp"-->
-<!--            android:layout_height="@dimen/_15sdp"-->
-<!--            android:padding="@dimen/_3sdp"-->
-<!--            android:src="@drawable/location" />-->
+        <!--        <ImageView-->
+        <!--            android:layout_width="@dimen/_15sdp"-->
+        <!--            android:layout_height="@dimen/_15sdp"-->
+        <!--            android:padding="@dimen/_3sdp"-->
+        <!--            android:src="@drawable/location" />-->
 
         <TextView
-            android:id="@+id/txtplacelocation"
+            android:id="@+id/txt_cart_location"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_15sdp"
             android:fontFamily="@font/aovelsansrounded"
@@ -66,7 +59,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/txtplaceamount"
+        android:id="@+id/txt_cart_amount"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_20sdp"
         android:layout_marginHorizontal="@dimen/_20sdp"
@@ -88,16 +81,16 @@
 
         <TextView
             android:layout_width="@dimen/_220sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_height="@dimen/_15sdp"
             android:fontFamily="@font/aovelsansrounded"
             android:text="Free cancellation"
             android:textColor="@color/white"
             android:layout_marginBottom="@dimen/_5sdp"
-           />
+            />
         <ImageView
-            android:id="@+id/imgaddtocart"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
+            android:id="@+id/imgiconCart"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_margin="@dimen/_5sdp"
             android:layout_weight="2"
             android:src="@drawable/addtocart2"

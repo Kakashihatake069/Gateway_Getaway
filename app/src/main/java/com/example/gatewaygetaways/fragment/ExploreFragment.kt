@@ -405,7 +405,7 @@ class ExploreFragment : Fragment() {
                         var rateing = snapshot.child("rateing").value.toString()
                         var location = snapshot.child("location").value.toString()
 
-                        Log.e("TAG", "like: " + name)
+                        Log.e("TAG", "like:" + location)
 
                         firebaseDatabase.child("mountain").child(name).child("details")
                             .child("user_data_storage").child(auth.currentUser?.uid!!)
@@ -431,6 +431,55 @@ class ExploreFragment : Fragment() {
 
                 })
 
+
+        }, { cart, name ->
+
+            firebaseDatabase.child("mountain").child(name).child("details")
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        var cartname = snapshot.child("name").value.toString()
+                        var cartamount = snapshot.child("amount").value.toString()
+                        var cartimage = snapshot.child("image").value.toString()
+                        var cartinfo = snapshot.child("info").value.toString()
+                        var cartrateing = snapshot.child("rateing").value.toString()
+                        var cartlocation = snapshot.child("location").value.toString()
+
+                        Log.e("TAG", "like:" + cartlocation)
+
+                        firebaseDatabase.child("mountain").child(name).child("details")
+                            .child("cart_data_storage").child(auth.currentUser?.uid!!)
+                            .child(name)
+                            .setValue(
+                                LikeModelCass(
+                                    cartimage,
+                                    cartname,
+                                    cartamount,
+                                    cartrateing,
+                                    cartinfo,
+                                    cartlocation
+                                )
+                            )
+
+                        firebaseDatabase.child("cart").child(name).child(auth.currentUser?.uid!!)
+                            .child("cart_records")
+                            .child("cartlist").child(name)
+                            .setValue(
+                                LikeModelCass(
+                                    cartimage,
+                                    cartname,
+                                    cartamount,
+                                    cartrateing,
+                                    cartinfo,
+                                    cartlocation
+                                )
+                            )
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
 
         })
         firebaseDatabase = FirebaseDatabase.getInstance().reference

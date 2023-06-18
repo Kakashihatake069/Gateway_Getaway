@@ -1,23 +1,23 @@
 package com.example.gatewaygetaways.fragment
 
+import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import com.bumptech.glide.Glide
 import com.example.gatewaygetaways.R
-import com.example.gatewaygetaways.databinding.FragmentExploreBinding
+import com.example.gatewaygetaways.activity.TypesOfLoginActivity
 import com.example.gatewaygetaways.databinding.FragmentProfileBinding
-import com.example.gatewaygetaways.modelclass.ModelClassForDestinaion
 import com.example.gatewaygetaways.modelclass.UserModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -27,13 +27,14 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
-import kotlin.math.E
+import com.google.firebase.storage.StorageReference
 
 
 class ProfileFragment : Fragment() {
     lateinit var profileBinding: FragmentProfileBinding
     lateinit var firebaseDatabase: DatabaseReference
     lateinit var firebaseUser: FirebaseUser
+    lateinit var storageReference: StorageReference
     lateinit var mAuth: FirebaseAuth
     var userlist =ArrayList<UserModelClass>()
 
@@ -42,16 +43,16 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         profileBinding = FragmentProfileBinding.inflate(layoutInflater,container,false)
 
-        mAuth = FirebaseAuth.getInstance()
-        firebaseDatabase = FirebaseDatabase.getInstance().getReference("user")
-        firebaseUser=mAuth.currentUser!!
-
         initview()
 
         return profileBinding.root
     }
 
+
+
     private fun initview() {
+
+
         // Pick Image Method
         profileBinding.imgcircleDP.setOnClickListener {
             val Gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
