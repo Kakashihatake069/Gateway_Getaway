@@ -51,6 +51,7 @@ class DisplayplaceActivity : AppCompatActivity() {
         }
     }
 
+
     private fun initview() {
 
         if (key != null && intent.hasExtra("topddestination")) {
