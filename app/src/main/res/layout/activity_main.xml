@@ -7,6 +7,7 @@
     tools:context=".activity.MainActivity"
     android:gravity="center_horizontal"
     android:orientation="vertical"
+    android:background="#245953"
     >
 
     <ImageView

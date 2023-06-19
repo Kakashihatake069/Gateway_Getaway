@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.TypesOfLoginActivity"
     android:orientation="vertical"
-    android:background="#1A1B20">
+    android:background="#245953">
 
     <ImageView
         android:layout_width="match_parent"
@@ -20,8 +20,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=" A JOURNEY OF A THOUSAND MILES BEGINS WITH A SINGLE STEP, COME AND STEP IN YOUR JOURNEY WITH US."
-        android:textColor="#FFD938"
+        android:textColor="@color/white"
         android:gravity="center"
+        android:fontFamily="@font/aovelsansrounded"
         android:layout_marginTop="@dimen/_15sdp"
         />
 

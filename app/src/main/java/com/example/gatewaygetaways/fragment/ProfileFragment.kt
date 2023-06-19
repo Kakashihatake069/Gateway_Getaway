@@ -21,12 +21,14 @@ import com.example.gatewaygetaways.databinding.FragmentProfileBinding
 import com.example.gatewaygetaways.modelclass.UserModelClass
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.StorageReference
 
 
@@ -42,9 +44,9 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         profileBinding = FragmentProfileBinding.inflate(layoutInflater,container,false)
-
+        firebaseDatabase = FirebaseDatabase.getInstance().getReference()
+        mAuth = Firebase.auth
         initview()
-
         return profileBinding.root
     }
 
@@ -68,7 +70,7 @@ class ProfileFragment : Fragment() {
                     var EmailId = postSnapshot.child("email").value
                     var image = postSnapshot.child("image").value
 
-                    Log.e("TAG", "onDataChange: "+firstname+" "+lastname+" "+image)
+                    Log.e("TAG", "onDataChangedf:"+firstname+" "+lastname+" "+image)
                     profileBinding.txtFname.text = firstname.toString()
                     profileBinding.txtLname.text= lastname.toString()
                     profileBinding.txtemailid.text= EmailId.toString()
